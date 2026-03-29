@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+
+  <title>TestimonialX — Turn Real Tweets Into Social Proof</title>
+  <meta name="description" content="Collect, exchange, and embed testimonials rooted in real X posts. Auto-post to X, manage approval flows, and embed beautiful widgets on your site. Start with $5 free credits." />
+  <meta name="keywords" content="testimonials, social proof, X testimonials, Twitter testimonials, testimonial exchange, audience reviews, indie hackers, SaaS testimonials, customer reviews, social proof widgets, testimonialx" />
+  <meta name="author" content="TestimonialX" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://testimonialx.com" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://testimonialx.com" />
+  <meta property="og:site_name" content="TestimonialX" />
+  <meta property="og:title" content="TestimonialX — Turn Real Tweets Into Social Proof" />
+  <meta property="og:description" content="Collect, exchange, and embed testimonials rooted in real X posts. Auto-post to X, manage approval flows, and embed beautiful widgets on your site." />
+  <meta property="og:image" content="https://testimonialx.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TestimonialX — Turn Real Tweets Into Social Proof" />
+  <meta name="twitter:description" content="Collect, exchange, and embed testimonials rooted in real X posts. Start with $5 free credits." />
+  <meta name="twitter:image" content="https://testimonialx.com/og-image.png" />
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"TestimonialX","url":"https://testimonialx.com","logo":"https://testimonialx.com/logo.png","description":"Collect, exchange, and embed testimonials rooted in real X posts. Auto-post to X, manage approval flows, and embed beautiful widgets on your site.","contactPoint":{"@type":"ContactPoint","contactType":"Customer Support","email":"testimonialxmail@gmail.com"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"TestimonialX","url":"https://testimonialx.com","description":"Collect, exchange, and embed testimonials rooted in real X posts.","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"Start with $5 free credits. Pay-as-you-go pricing."},"featureList":["Testimonial Exchange","Audience Requests","Manual Import","Embeddable Widgets","Public SEO Pages","Pay-as-you-go Credits","Approval Workflows","Analytics Dashboard"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does the testimonial exchange work?","acceptedAnswer":{"@type":"Answer","text":"Two founders agree to swap testimonials. TestimonialX auto-posts both to X simultaneously. Each exchange costs $0.50 per user and results in verified, public social proof tied to real tweets."}},{"@type":"Question","name":"Do I need a Twitter developer account?","acceptedAnswer":{"@type":"Answer","text":"No. You simply sign in with your regular X account via OAuth 2.0. TestimonialX handles the API integration on your behalf."}},{"@type":"Question","name":"How do I embed testimonials on my website?","acceptedAnswer":{"@type":"Answer","text":"Each project gets a widget.js snippet. Paste it on any website — Webflow, Framer, WordPress, Shopify, or custom HTML. The widget loads asynchronously and auto-updates as you approve new testimonials."}},{"@type":"Question","name":"What happens to approved testimonials if someone deletes their tweet?","acceptedAnswer":{"@type":"Answer","text":"Approved testimonials are stored in TestimonialX's database. Deletion from X does not remove them from your widget or public testimonial page."}},{"@type":"Question","name":"Is there a subscription fee?","acceptedAnswer":{"@type":"Answer","text":"No subscriptions. TestimonialX uses a pay-as-you-go credit system. You start with $5 free credits on signup and buy more when you need them."}}]}</script>
+
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1D9BF0;
+      --bg: #000;
+      --border: rgba(255,255,255,0.08);
+      --border-dash: rgba(255,255,255,0.15);
+      --text: #fff;
+      --muted: rgba(255,255,255,0.45);
+      --muted2: rgba(255,255,255,0.5);
+      --surface: rgba(255,255,255,0.04);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'General Sans', 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── GRADIENT TEXT ── */
+    .grad-text {
+      background: linear-gradient(144.5deg, #ffffff 28%, rgba(255,255,255,0) 115%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── PILL BUTTONS ── */
+    .pill-light, .pill-dark {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      border: 0.6px solid rgba(255,255,255,1);
+      padding: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .18s;
+    }
+    .pill-light:hover, .pill-dark:hover { opacity: .82; }
+
+    .pill-light::before, .pill-dark::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 40%;
+      border-radius: 9999px 9999px 0 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .pill-light::before { background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.6) 0%, transparent 70%); }
+    .pill-dark::before  { background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.25) 0%, transparent 70%); }
+
+    .pill-light .inner {
+      background: #fff; color: #000;
+      border-radius: 9999px;
+      padding: 11px 28px;
+      font-size: 14px; font-weight: 500;
+      position: relative; z-index: 1;
+      white-space: nowrap;
+    }
+    .pill-dark .inner {
+      background: #000; color: #fff;
+      border-radius: 9999px;
+      padding: 11px 28px;
+      font-size: 14px; font-weight: 500;
+      position: relative; z-index: 1;
+      white-space: nowrap;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .nav-logo {
+      font-size: 17px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--blue); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; color: rgba(255,255,255,0.6);
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta { display: flex; gap: 12px; align-items: center; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 20%, rgba(29,155,240,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(29,155,240,0.04) 0%, transparent 60%),
+        #000;
+    }
+
+    /* Subtle grid */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 10;
+      padding: 160px 24px 100px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 36px;
+      max-width: 700px;
+    }
+
+    /* Fade up animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fu  { animation: fadeUp .7s ease both; }
+    .fu1 { animation-delay: .05s; }
+    .fu2 { animation-delay: .18s; }
+    .fu3 { animation-delay: .32s; }
+    .fu4 { animation-delay: .46s; }
+    .fu5 { animation-delay: .58s; }
+
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    h1 {
+      font-size: clamp(36px, 5.5vw, 58px);
+      font-weight: 500; line-height: 1.22;
+      letter-spacing: -.01em;
+    }
+
+    .hero-sub {
+      font-size: 15px; color: rgba(255,255,255,0.65);
+      max-width: 520px; line-height: 1.72;
+      margin-top: -12px;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 14px;
+      flex-wrap: wrap; justify-content: center;
+    }
+
+    .credit-pills {
+      display: flex; gap: 10px;
+      flex-wrap: wrap; justify-content: center;
+    }
+
+    .cpill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+    }
+    .cpill strong { color: #fff; font-weight: 600; }
+
+    /* ── STRIP ── */
+    #strip {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 36px 32px;
+      text-align: center;
+    }
+    .strip-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 16px;
+    }
+    .strip-body {
+      max-width: 640px; margin: 0 auto;
+      font-size: 14px; color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+    }
+
+    /* ── SECTION HEADER ── */
+    .sec-header {
+      text-align: center;
+      padding: 80px 32px 48px;
+    }
+    .eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 14px;
+    }
+    h2 {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 500; line-height: 1.25;
+      max-width: 540px; margin: 0 auto 14px;
+    }
+    .sec-sub {
+      font-size: 14px; color: var(--muted);
+      max-width: 420px; margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── MARQUEE ── */
+    .mq-stack { display: flex; flex-direction: column; gap: 10px; }
+
+    .mq-wrap {
+      overflow: hidden; width: 100%;
+      position: relative;
+    }
+    .mq-wrap::before, .mq-wrap::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0;
+      width: 80px; z-index: 2; pointer-events: none;
+    }
+    .mq-wrap::before { left: 0;  background: linear-gradient(to right, #000, transparent); }
+    .mq-wrap::after  { right: 0; background: linear-gradient(to left, #000, transparent); }
+
+    @keyframes mq-fwd { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes mq-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+    .mq-track       { display: flex; gap: 10px; white-space: nowrap; animation: mq-fwd 40s linear infinite; }
+    .mq-track.rev   { animation: mq-rev 50s linear infinite; }
+    .mq-track.slow  { animation: mq-fwd 56s linear infinite; }
+
+    .mqbadge {
+      display: inline-flex; align-items: center;
+      padding: 5px 14px;
+      background: rgba(237,235,190,0.08);
+      border: 1px solid rgba(237,235,190,0.15);
+      font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      white-space: nowrap; flex-shrink: 0;
+      border-radius: 4px;
+    }
+
+    /* ── FEATURE GRID ── */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px dashed var(--border-dash);
+      margin-top: 56px;
+    }
+
+    .feat {
+      display: flex; flex-direction: column; gap: 16px;
+      padding: 32px 24px 36px;
+      border-right: 1px dashed var(--border-dash);
+      border-bottom: 1px dashed var(--border-dash);
+      transition: background .2s;
+    }
+    .feat:hover { background: rgba(255,255,255,0.03); }
+    .feat:nth-child(4n) { border-right: none; }
+
+    .feat h3 { font-size: 17px; font-weight: 500; color: #fff; line-height: 1.3; margin-top: 12px; }
+    .feat p  { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    .icon-wrap { width: 44px; height: 44px; flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .feat-grid { grid-template-columns: repeat(2, 1fr); }
+      .feat:nth-child(4n) { border-right: 1px dashed var(--border-dash); }
+      .feat:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 500px) {
+      .feat-grid { grid-template-columns: 1fr; }
+      .feat { border-right: none !important; }
+    }
+
+    /* ── HOW IT WORKS ── */
+    #how-it-works {
+      max-width: 720px; margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 0; }
+
+    .step {
+      display: flex; gap: 24px;
+    }
+
+    .step-left {
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      flex-shrink: 0;
+    }
+
+    .step-line {
+      width: 1px; flex: 1; min-height: 40px;
+      background: rgba(255,255,255,0.1);
+      margin-top: 8px;
+    }
+
+    .step-body { padding-bottom: 40px; }
+    .step-body h3 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+    .step-body p  { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+    /* ── PRICING ── */
+    #pricing { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+
+    @media (max-width: 900px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: border-color .2s;
+      position: relative;
+    }
+    .pricing-card:hover { border-color: rgba(255,255,255,0.15); }
+    .pricing-card.popular {
+      border-color: rgba(29,155,240,0.4);
+      background: rgba(29,155,240,0.04);
+    }
+    .pricing-card.highlighted {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .popular-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--blue); color: #fff;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 12px; border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .pricing-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: .06em; }
+    .pricing-price { font-size: 36px; font-weight: 600; line-height: 1; }
+    .pricing-price span { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.5); }
+    .pricing-desc { font-size: 13px; color: var(--muted); }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 4px; }
+    .pricing-features li {
+      font-size: 13px; color: rgba(255,255,255,0.65);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pricing-features li::before { content: '✓'; color: var(--blue); font-weight: 700; font-size: 12px; flex-shrink: 0; }
+    .pricing-cta {
+      margin-top: auto;
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+      transition: background .2s, border-color .2s;
+      text-decoration: none;
+      display: block;
+    }
+    .pricing-cta:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); }
+    .pricing-card.popular .pricing-cta,
+    .pricing-card.highlighted .pricing-cta {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .pricing-card.popular .pricing-cta:hover,
+    .pricing-card.highlighted .pricing-cta:hover {
+      background: #1a8fd0;
+    }
+
+    /* Credit cost grid */
+    .credit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 680px; margin: 0 auto;
+    }
+
+    @media (max-width: 600px) { .credit-grid { grid-template-columns: 1fr; } }
+
+    .credit-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 15px 20px;
+    }
+    .credit-row-label { font-size: 14px; font-weight: 500; color: #fff; }
+    .credit-row-note  { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+    .credit-row-price { font-size: 20px; font-weight: 700; }
+    .credit-row-price.free { color: #00BA7C; }
+
+    /* ── FAQ ── */
+    #faq { max-width: 760px; margin: 0 auto; padding: 0 32px 80px; }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 22px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+
+    .faq-q {
+      font-size: 16px; font-weight: 500; color: #fff;
+      margin-bottom: 10px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+      cursor: pointer;
+    }
+    .faq-q::after { content: '+'; color: rgba(255,255,255,0.3); font-size: 20px; flex-shrink: 0; line-height: 1.2; }
+    .faq-a { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+    /* ── FINAL CTA ── */
+    #final-cta {
+      position: relative; overflow: hidden;
+      padding: 96px 32px;
+      text-align: center;
+    }
+    #final-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(29,155,240,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #final-cta .inner-wrap {
+      position: relative; z-index: 1;
+      max-width: 580px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; gap: 24px;
+    }
+    #final-cta h2 { font-size: clamp(30px, 4vw, 46px); }
+    #final-cta p  { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+    /* ── COMPARISON TABLE ── */
+    #comparison { max-width: 900px; margin: 0 auto; padding: 0 32px 80px; }
+
+    .table-wrap { overflow-x: auto; margin-top: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th {
+      font-size: 11px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      text-align: left; padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    td { padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); }
+    tr:last-child td { border-bottom: none; }
+    td:first-child { color: rgba(255,255,255,0.85); font-weight: 500; }
+    .yes { color: var(--blue); }
+    .no  { color: rgba(255,255,255,0.2); }
+    .partial { color: rgba(255,165,0,0.7); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 48px 48px 0;
+      background: #000;
+    }
+
+    .footer-top {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;
+      margin-bottom: 32px;
+    }
+
+    .footer-brand { max-width: 240px; }
+    .footer-logo {
+      font-size: 17px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .footer-logo span { color: var(--blue); }
+    .footer-tagline { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); margin-top: 12px; }
+
+    .footer-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+    .footer-col h3 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 13px; color: rgba(255,255,255,0.4); transition: color .15s; }
+    .footer-col a:hover { color: #fff; }
+
+    .footer-big {
+      text-align: center; padding: 16px 0 0;
+      overflow: hidden;
+    }
+    .footer-big-text {
+      font-size: clamp(52px, 12vw, 140px);
+      font-weight: 700;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1; user-select: none;
+      letter-spacing: -.02em;
+    }
+
+    @media (max-width: 700px) {
+      footer { padding: 40px 24px 0; }
+      .footer-top { flex-direction: column; }
+      .footer-cols { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Share button */
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75);
+      transition: background .15s;
+      cursor: pointer;
+    }
+    .share-btn:hover { background: rgba(255,255,255,0.12); }
+
+    /* X icon */
+    .x-icon { width: 14px; height: 14px; fill: currentColor; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav>
+    <div class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="7" fill="#1D9BF0"/>
+        <path d="M7 7h4.5l3 4.5L18 7h4L16 14.5 22 21h-4.5l-3.5-5-3.5 5H7l6.5-7L7 7z" fill="white"/>
+      </svg>
+      Testimonial<span>X</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How it Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://testimonialx.com/login" class="pill-light">
+        <span class="inner">Get Started Free</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="eyebrow fu fu1">Social Proof Platform</p>
+      <h1 class="grad-text fu fu2">Social Proof That<br/>Starts on X</h1>
+      <p class="hero-sub fu fu3">
+        Exchange testimonials with other founders, collect audience reviews, and embed
+        stunning widgets on your site — all backed by real tweets on X. Automated,
+        credible, and beautifully displayed.
+      </p>
+      <div class="hero-ctas fu fu4">
+        <a href="https://testimonialx.com/login" class="pill-light">
+          <span class="inner">Start for Free — $5 Credits Included</span>
+        </a>
+        <a href="#how-it-works" class="pill-dark">
+          <span class="inner">See How It Works</span>
+        </a>
+      </div>
+      <div class="credit-pills fu fu5">
+        <span class="cpill"><strong>$0.50</strong> Exchange</span>
+        <span class="cpill"><strong>$0.05</strong> Audience review</span>
+        <span class="cpill"><strong>$5.00</strong> Free on signup</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STRIP ── -->
+  <div id="strip">
+    <p class="strip-label">Built for founders who want verifiable social proof</p>
+    <p class="strip-body">
+      Import genuine posts from X, review submissions before they go live, and publish
+      a public testimonial wall that links back to the original source when available.
+    </p>
+  </div>
+
+  <!-- ── FEATURES ── -->
+  <section id="features" style="background:#000; padding: 0 0 0;">
+    <div class="sec-header">
+      <p class="eyebrow">Features</p>
+      <h2 class="grad-text">Everything you need for credible social proof</h2>
+      <p class="sec-sub">One platform to collect, post, and showcase testimonials — all tied to real X activity.</p>
+    </div>
+
+    <!-- Marquee -->
+    <div class="mq-stack">
+      <div class="mq-wrap">
+        <div class="mq-track">
+          <span class="mqbadge">Testimonial exchange</span><span class="mqbadge">Auto-post to X</span><span class="mqbadge">Audience reviews</span><span class="mqbadge">Import tweet URLs</span><span class="mqbadge">Embeddable widgets</span><span class="mqbadge">SEO public pages</span><span class="mqbadge">Testimonial exchange</span><span class="mqbadge">Auto-post to X</span><span class="mqbadge">Audience reviews</span><span class="mqbadge">Import tweet URLs</span><span class="mqbadge">Embeddable widgets</span><span class="mqbadge">SEO public pages</span><span class="mqbadge">Testimonial exchange</span><span class="mqbadge">Auto-post to X</span><span class="mqbadge">Audience reviews</span><span class="mqbadge">Import tweet URLs</span><span class="mqbadge">Embeddable widgets</span><span class="mqbadge">SEO public pages</span><span class="mqbadge">Testimonial exchange</span><span class="mqbadge">Auto-post to X</span><span class="mqbadge">Audience reviews</span><span class="mqbadge">Import tweet URLs</span><span class="mqbadge">Embeddable widgets</span><span class="mqbadge">SEO public pages</span>
+        </div>
+      </div>
+      <div class="mq-wrap">
+        <div class="mq-track rev">
+          <span class="mqbadge">Credit bundles</span><span class="mqbadge">Pay-as-you-go</span><span class="mqbadge">OAuth 2.0 login</span><span class="mqbadge">Custom branding</span><span class="mqbadge">Approval workflows</span><span class="mqbadge">Real X tweets</span><span class="mqbadge">Credit bundles</span><span class="mqbadge">Pay-as-you-go</span><span class="mqbadge">OAuth 2.0 login</span><span class="mqbadge">Custom branding</span><span class="mqbadge">Approval workflows</span><span class="mqbadge">Real X tweets</span><span class="mqbadge">Credit bundles</span><span class="mqbadge">Pay-as-you-go</span><span class="mqbadge">OAuth 2.0 login</span><span class="mqbadge">Custom branding</span><span class="mqbadge">Approval workflows</span><span class="mqbadge">Real X tweets</span><span class="mqbadge">Credit bundles</span><span class="mqbadge">Pay-as-you-go</span><span class="mqbadge">OAuth 2.0 login</span><span class="mqbadge">Custom branding</span><span class="mqbadge">Approval workflows</span><span class="mqbadge">Real X tweets</span>
+        </div>
+      </div>
+      <div class="mq-wrap">
+        <div class="mq-track slow">
+          <span class="mqbadge">Founder marketplace</span><span class="mqbadge">Widget.js embed</span><span class="mqbadge">$5 free credits</span><span class="mqbadge">No subscription</span><span class="mqbadge">Live preview</span><span class="mqbadge">Badge removal</span><span class="mqbadge">Founder marketplace</span><span class="mqbadge">Widget.js embed</span><span class="mqbadge">$5 free credits</span><span class="mqbadge">No subscription</span><span class="mqbadge">Live preview</span><span class="mqbadge">Badge removal</span><span class="mqbadge">Founder marketplace</span><span class="mqbadge">Widget.js embed</span><span class="mqbadge">$5 free credits</span><span class="mqbadge">No subscription</span><span class="mqbadge">Live preview</span><span class="mqbadge">Badge removal</span><span class="mqbadge">Founder marketplace</span><span class="mqbadge">Widget.js embed</span><span class="mqbadge">$5 free credits</span><span class="mqbadge">No subscription</span><span class="mqbadge">Live preview</span><span class="mqbadge">Badge removal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature grid -->
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M8 22C8 14.268 14.268 8 22 8s14 6.268 14 14" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M36 22c0 7.732-6.268 14-14 14S8 29.732 8 22" stroke="#1D9BF0" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M32 18l4 4-4 4" stroke="#1D9BF0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M12 26l-4-4 4-4" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <h3>Testimonial Exchange</h3>
+        <p>Two founders swap testimonials. Both auto-post to X simultaneously. Verified, public, costs just $0.50 per user.</p>
+      </div>
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="14" r="5" stroke="#1D9BF0" stroke-width="1.5"/>
+            <path d="M10 34c0-5.523 5.373-10 12-10s12 4.477 12 10" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M30 20l4 2-4 2" stroke="#1D9BF0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="22" y1="26" x2="34" y2="22" stroke="#1D9BF0" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3>Audience Requests</h3>
+        <p>Share a link. Your audience submits testimonials. You approve and auto-post to X. Each one costs just $0.05.</p>
+      </div>
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <rect x="10" y="12" width="24" height="20" rx="3" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            <path d="M10 17h24" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <path d="M15 22h14M15 26h9" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M28 30l4 4" stroke="#1D9BF0" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="32" cy="34" r="3" stroke="#1D9BF0" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h3>Manual Import</h3>
+        <p>Paste any tweet URL. TestimonialX fetches text, avatar, and media from X API v2 and stores it to your project.</p>
+      </div>
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <rect x="8" y="10" width="28" height="20" rx="3" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            <rect x="12" y="14" width="12" height="8" rx="2" stroke="#1D9BF0" stroke-width="1.5"/>
+            <path d="M12 28h20M22 30v4M16 34h12" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Embeddable Widgets</h3>
+        <p>Drop widget.js on any site. Three styles, live preview. Remove the badge for a one-time 4-credit fee.</p>
+      </div>
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="12" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            <ellipse cx="22" cy="22" rx="6" ry="12" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+            <path d="M10 22h24" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <path d="M11 16h22M11 28h22" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <circle cx="22" cy="22" r="2.5" fill="#1D9BF0"/>
+          </svg>
+        </div>
+        <h3>Public SEO Pages</h3>
+        <p>Every project gets a server-rendered /p/[projectId] page — SEO-optimized and ready to share with the world.</p>
+      </div>
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <rect x="10" y="14" width="24" height="16" rx="3" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            <path d="M14 20h4M14 24h8" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="30" cy="22" r="2" fill="#1D9BF0"/>
+            <path d="M26 30l-2 4M30 30v4M34 30l2 4" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Pay-as-you-go Credits</h3>
+        <p>No subscription needed. Buy credit bundles via Dodo Payments. Start with $5 free on signup.</p>
+      </div>
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M22 10v5M22 29v5M10 22h5M29 22h5" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="22" cy="22" r="7" stroke="#1D9BF0" stroke-width="1.5"/>
+            <path d="M18 22l3 3 5-5" stroke="#1D9BF0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <h3>Approval Workflows</h3>
+        <p>Review every testimonial before it goes live. Control what posts to your X feed with one-click approval.</p>
+      </div>
+      <div class="feat">
+        <div class="icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M10 32L20 14l6 10 4-6 6 14" stroke="#1D9BF0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="10" cy="32" r="2" fill="#1D9BF0"/>
+            <circle cx="36" cy="32" r="2" fill="#1D9BF0"/>
+            <path d="M8 36h28" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Analytics Dashboard</h3>
+        <p>Track views, clicks, and conversions from your testimonial wall. See what's driving trust for your product.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section>
+    <div class="sec-header">
+      <p class="eyebrow">How It Works</p>
+      <h2 class="grad-text">From signup to live tweet in minutes</h2>
+    </div>
+    <div id="how-it-works">
+      <div class="steps">
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">01</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <h3>Connect your X account</h3>
+            <p>Sign in with X OAuth 2.0. TestimonialX securely stores your tokens to post tweets on your behalf.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">02</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <h3>Create a project</h3>
+            <p>Add your product name, URL, and @mention preference. Each project gets its own testimonial wall and embed.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">03</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <h3>Collect testimonials</h3>
+            <p>Exchange with another founder, share your audience request link, or import an existing tweet URL.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left">
+            <div class="step-num">04</div>
+          </div>
+          <div class="step-body">
+            <h3>Auto-post &amp; embed</h3>
+            <p>Testimonials post to X automatically on approval. Embed the widget on your landing page and watch conversions grow.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICING ── -->
+  <section>
+    <div class="sec-header">
+      <p class="eyebrow">Pricing</p>
+      <h2 class="grad-text">Simple credit-based pricing</h2>
+      <p class="sec-sub">No subscriptions. Buy credits when you need them. Start free.</p>
+    </div>
+    <div id="pricing">
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-name">Starter</div>
+          <div class="pricing-price">$10 <span>one-time</span></div>
+          <div class="pricing-desc">Perfect for testing the waters</div>
+          <ul class="pricing-features">
+            <li>100 credits</li>
+            <li>Perfect for testing</li>
+            <li>No expiration</li>
+            <li>Email support</li>
+            <li>All features included</li>
+          </ul>
+          <a href="https://testimonialx.com/login" class="pricing-cta">Get Started</a>
+        </div>
+        <div class="pricing-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="pricing-name">Growth</div>
+          <div class="pricing-price">$25 <span>one-time</span></div>
+          <div class="pricing-desc">Best value for active founders</div>
+          <ul class="pricing-features">
+            <li>300 credits</li>
+            <li>+50 bonus credits</li>
+            <li>Best value</li>
+            <li>Priority support</li>
+            <li>All features included</li>
+          </ul>
+          <a href="https://testimonialx.com/login" class="pricing-cta">Get Started</a>
+        </div>
+        <div class="pricing-card highlighted">
+          <div class="pricing-name">Pro</div>
+          <div class="pricing-price">$50 <span>one-time</span></div>
+          <div class="pricing-desc">Maximum value for power users</div>
+          <ul class="pricing-features">
+            <li>700 credits</li>
+            <li>+150 bonus credits</li>
+            <li>Maximum value</li>
+            <li>Priority support</li>
+            <li>All features included</li>
+          </ul>
+          <a href="https://testimonialx.com/login" class="pricing-cta">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-name">Custom</div>
+          <div class="pricing-price" style="font-size:28px">Custom</div>
+          <div class="pricing-desc">For teams and enterprises</div>
+          <ul class="pricing-features">
+            <li>Custom credit amount</li>
+            <li>Volume discounts</li>
+            <li>Dedicated support</li>
+            <li>Custom billing</li>
+            <li>SLA guarantee</li>
+          </ul>
+          <a href="https://testimonialx.com" class="pricing-cta">Contact Us</a>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-bottom: 52px;">
+        <a href="https://testimonialx.com/login" class="pill-light" style="display:inline-flex;">
+          <span class="inner">Get $5 Free Credits — Sign Up Now</span>
+        </a>
+      </div>
+
+      <div class="credit-grid">
+        <div class="credit-row">
+          <div><div class="credit-row-label">Testimonial Exchange</div><div class="credit-row-note">per user (both sides)</div></div>
+          <div class="credit-row-price">$0.50</div>
+        </div>
+        <div class="credit-row">
+          <div><div class="credit-row-label">Audience Testimonial</div><div class="credit-row-note">per approved review</div></div>
+          <div class="credit-row-price">$0.05</div>
+        </div>
+        <div class="credit-row">
+          <div><div class="credit-row-label">Remove Branding Badge</div><div class="credit-row-note">one-time per project</div></div>
+          <div class="credit-row-price">$4.00</div>
+        </div>
+        <div class="credit-row">
+          <div><div class="credit-row-label">API Access</div><div class="credit-row-note">per month per project</div></div>
+          <div class="credit-row-price">$4.00</div>
+        </div>
+        <div class="credit-row">
+          <div><div class="credit-row-label">Marketplace Skip</div><div class="credit-row-note">per skip</div></div>
+          <div class="credit-row-price">$0.01</div>
+        </div>
+        <div class="credit-row">
+          <div><div class="credit-row-label">Signup Bonus</div><div class="credit-row-note">$5.00 credits on signup</div></div>
+          <div class="credit-row-price free">FREE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPARISON ── -->
+  <section>
+    <div class="sec-header">
+      <p class="eyebrow">Comparison</p>
+      <h2 class="grad-text">TestimonialX vs alternatives</h2>
+      <p class="sec-sub">How we stack up against Senja, Testimonial.to, and EmbedSocial.</p>
+    </div>
+    <div id="comparison">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>TestimonialX</th>
+              <th>Senja</th>
+              <th>Testimonial.to</th>
+              <th>EmbedSocial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Twitter/X OAuth Auto-Collection</td><td class="yes">✓ Native</td><td class="no">✗ Manual</td><td class="partial">⚠ Limited</td><td class="partial">⚠ Feed-level</td></tr>
+            <tr><td>Testimonial Exchange Marketplace</td><td class="yes">✓ Built-in</td><td class="no">✗ No</td><td class="no">✗ No</td><td class="no">✗ No</td></tr>
+            <tr><td>Public SEO Testimonial Pages</td><td class="yes">✓ Yes</td><td class="yes">✓ Yes</td><td class="yes">✓ Yes</td><td class="no">✗ No</td></tr>
+            <tr><td>Auto-Post Back to Twitter</td><td class="yes">✓ Yes</td><td class="no">✗ No</td><td class="no">✗ No</td><td class="no">✗ No</td></tr>
+            <tr><td>Credit-Based (Pay As You Go)</td><td class="yes">✓ Yes</td><td class="no">✗ Seat-based</td><td class="no">✗ Seat-based</td><td class="no">✗ Monthly seat</td></tr>
+            <tr><td>One-Click Approval Workflow</td><td class="yes">✓ Yes</td><td class="yes">✓ Yes</td><td class="yes">✓ Yes</td><td class="partial">⚠ Basic</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section>
+    <div class="sec-header">
+      <p class="eyebrow">FAQ</p>
+      <h2 class="grad-text">Frequently asked questions</h2>
+      <p class="sec-sub">Everything you need to know about TestimonialX.</p>
+    </div>
+    <div id="faq">
+      <div class="faq-item">
+        <div class="faq-q">How does the testimonial exchange work?</div>
+        <div class="faq-a">Two founders agree to swap testimonials. TestimonialX auto-posts both to X simultaneously. Each exchange costs $0.50 per user and results in verified, public social proof tied to real tweets.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need a Twitter developer account?</div>
+        <div class="faq-a">No. You simply sign in with your regular X account via OAuth 2.0. TestimonialX handles the API integration on your behalf — no developer credentials needed.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Will TestimonialX post anything without my approval?</div>
+        <div class="faq-a">Never. Every testimonial goes through your approval queue first. The auto-post-to-X feature is opt-in per project — you choose when and if it fires.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I embed testimonials on my website?</div>
+        <div class="faq-a">Each project gets a widget.js snippet. Paste it on any website — Webflow, Framer, WordPress, Shopify, or custom HTML. The widget loads asynchronously and auto-updates as you approve new testimonials.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens if someone deletes their tweet?</div>
+        <div class="faq-a">Approved testimonials are stored in TestimonialX's database. Deletion from X does not remove them from your widget or public testimonial page.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there a subscription fee?</div>
+        <div class="faq-a">No subscriptions. TestimonialX uses a pay-as-you-go credit system. You start with $5 free credits on signup and buy more when you need them — no recurring charges.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I manage testimonials for multiple products?</div>
+        <div class="faq-a">Yes. Create separate projects for each site or product. Each project gets its own embed widget, testimonial wall, and public SEO page. One account handles them all.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ── -->
+  <section id="final-cta">
+    <div class="inner-wrap">
+      <h2 class="grad-text">Start collecting real testimonials today</h2>
+      <p>Join founders who are turning their X presence into trust-building social proof. $5 free credits. No credit card required.</p>
+      <a href="https://testimonialx.com/login" class="pill-light">
+        <span class="inner">Connect X &amp; Get Started Free</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="7" fill="#1D9BF0"/>
+            <path d="M7 7h4.5l3 4.5L18 7h4L16 14.5 22 21h-4.5l-3.5-5-3.5 5H7l6.5-7L7 7z" fill="white"/>
+          </svg>
+          Testimonial<span>X</span>
+        </div>
+        <p class="footer-tagline">Social proof that starts on <span style="color:#1D9BF0">X</span></p>
+        <a href="https://x.com/compose/tweet?text=I%27m%20using%20%23TestimonialX%20to%20collect%20and%20showcase%20testimonials%20from%20real%20X%20posts!%20Check%20it%20out%20%F0%9F%9A%80" class="share-btn" target="_blank" rel="noopener">
+          Share on
+          <svg class="x-icon" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163Z" fill="white"/></svg>
+        </a>
+        <p class="footer-copy">© 2025 TestimonialX. All rights reserved.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Product</h3>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#how-it-works">How it Works</a></li>
+            <li><a href="https://testimonialx.com/dashboard">Dashboard</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="https://testimonialx.com/login">Sign In</a></li>
+            <li><a href="https://testimonialx.com/credits">Buy Credits</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="https://testimonialx.com/privacy">Privacy Policy</a></li>
+            <li><a href="https://testimonialx.com/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-big">
+      <div class="footer-big-text">TestimonialX</div>
+    </div>
+  </footer>
+
+</body>
+</html>
