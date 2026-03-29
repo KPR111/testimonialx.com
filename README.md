@@ -3,7 +3,7 @@
 > **[TestimonialX](https://testimonialx.com)** is the easiest way to collect real testimonials from Twitter/X, approve them in one click, and embed a beautiful widget on your website — no coding required.
 
 [![Live App](https://img.shields.io/badge/Live%20App-testimonialx.com-black?style=for-the-badge)](https://testimonialx.com)
-[![Twitter Testimonials](https://img.shields.io/badge/Twitter-Testimonials-1DA1F2?style=for-the-badge&logo=twitter)](https://testimonialx.com)
+[![Twitter Testimonials](https://img.shields.io/badge/Twitter-Testimonials-1DA1F2?style=for-the-badge&logo=twitter)](https://x.com/TestimonialXcom)
 [![Embed Widget](https://img.shields.io/badge/Embed-Widget-00C853?style=for-the-badge)](https://testimonialx.com)
 
 ---
@@ -158,7 +158,7 @@ A: Yes — theme (light/dark/auto), layout (grid/list/carousel), and accent colo
 **Q: Does TestimonialX work with Webflow / Framer / WordPress?**  
 A: Yes. Paste the JS snippet into any page that allows custom code. Works with all major website builders.
 
----
+<!-- ---
 
 ## Roadmap
 
@@ -169,13 +169,13 @@ A: Yes. Paste the JS snippet into any page that allows custom code. Works with a
 - [ ] CSV export for CRM import
 - [ ] G2 / Trustpilot review import
 
----
+--- -->
 
 ## Get Started Free
 
-👉 **[Sign up at testimonialx.com](https://testimonialx.com)** — free credits included on signup, no credit card required.
+👉 **[Sign up at testimonialx.com](https://testimonialx.com/login)** — free credits included on signup, no credit card required.
 
----
+<!-- ---
 
 ## Related Resources
 
@@ -184,7 +184,7 @@ A: Yes. Paste the JS snippet into any page that allows custom code. Works with a
 - [Social proof statistics that increase conversion](https://testimonialx.com/blog/social-proof-statistics)
 - [How to embed testimonials on Webflow](https://testimonialx.com/blog/embed-testimonials-webflow)
 
----
+--- -->
 
 ## License
 
